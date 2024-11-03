@@ -105,11 +105,12 @@ if (isset($_POST['registerUserBtn'])) {
 if (isset($_POST['loginUserBtn'])) {
 
 	$username = $_POST['username'];
-	$password = sha1($_POST['password']);
+	$password = $_POST['password'];
+	$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 	if (!empty($username) && !empty($password)) {
 
-		$loginQuery = loginUser($pdo, $username, $password);
+		$loginQuery = loginUser($pdo, $username, $hashed_password);
 	
 		if ($loginQuery) {
 			header("Location: ../index.php");
